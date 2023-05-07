@@ -10,7 +10,7 @@ public class GhostBlock : MonoBehaviour
 
     public bool VaildMove()
     {
-        ghostgrid = TetrisBlock.grid;
+        ghostgrid = Gamemanagers.grid;
         foreach (Transform children in transform)
         {
             int roundedX = Mathf.RoundToInt(children.transform.position.x);

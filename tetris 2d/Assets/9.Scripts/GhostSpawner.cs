@@ -15,7 +15,7 @@ public class GhostSpawner : MonoBehaviour
         TetrominoVector.x = TetrominoTransform.position.x;
         TetrominoVector.y = 15;
 
-        GhostBlock copyghostblock = Instantiate(Tetrominos[FindObjectOfType<SpawnBlock>().nNowBlock], TetrominoVector, TetrominoTransform.rotation);
+        GhostBlock copyghostblock = Instantiate(Tetrominos[SpawnBlock.nNowBlock], TetrominoVector, TetrominoTransform.rotation);
         m_CopyGhostBlock = copyghostblock;
         m_CopyGhostBlock.tag = "Ghost";
     }

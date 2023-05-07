@@ -7,8 +7,8 @@ public class SpawnBlock : MonoBehaviour
     public GameObject[] Tetrominos;
     private int[] nBag = new int[] { 0, 1, 2, 3, 4, 5, 6 };
     private int nBagTurn = 0;
-    public int nNextBlock;
-    public int nNowBlock;
+    public static int nNextBlock;
+    public static int nNowBlock;
 
     void Awake()
     {

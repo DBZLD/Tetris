@@ -22,7 +22,7 @@ public class NextBlock : MonoBehaviour
 
     private void SetNextBlock()
     {
-        nShowBlock = FindObjectOfType<SpawnBlock>().nNextBlock;
+        nShowBlock = SpawnBlock.nNextBlock;
     }
 
     private void CopyNextBlock()
