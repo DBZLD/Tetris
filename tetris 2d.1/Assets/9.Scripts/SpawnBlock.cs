@@ -25,7 +25,9 @@ public class SpawnBlock : MonoBehaviour
     }
     public void NewTetromino()
     {
-        Instantiate(Tetrominos[nNowBlock], transform.position, Quaternion.identity);
+        GameObject copyblock = Instantiate(Tetrominos[nNowBlock], transform.position, Quaternion.identity);
+        
+
     }
     public void NextTetromino()
     {

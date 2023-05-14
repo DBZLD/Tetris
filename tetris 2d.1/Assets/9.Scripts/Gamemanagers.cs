@@ -17,28 +17,22 @@ public class Gamemanagers : MonoBehaviour
         return m_Instance;
     }
 
-
-    public Vector3 rotationPoint;
     public static float fallTime = 0.8f;
     public static int Height = 20;
     public static int Width = 10;
     public static Transform[,] grid = new Transform[Width, Height];
 
-    public void DisableBlock()
+    public void DisableBlock(TetrisBlock block)
     {
-        AddToGide();
+        block.AddToGide();
         CheckForLines();
 
-        this.enabled = false;
+        block.enabled = false;
 
         FindObjectOfType<SpawnBlock>().ResetTetromino();
         FindObjectOfType<GhostSpawner>().ReSetGhostBlock();
         FindObjectOfType<NextBlock>().ResetNextBlock();
         FindObjectOfType<HoldBlock>().HoldEnable = true;
-    }
-    public void DestroyBlock()
-    {
-        Destroy(this.gameObject);
     }
 
     void CheckForLines()
@@ -88,17 +82,6 @@ public class Gamemanagers : MonoBehaviour
                     grid[j, y - 1].transform.position -= new Vector3(0, 1, 0);
                 }
             }
-        }
-    }
-
-    void AddToGide()
-    {
-        foreach (Transform children in transform)
-        {
-            int roundedX = Mathf.RoundToInt(children.transform.position.x);
-            int roundedY = Mathf.RoundToInt(children.transform.position.y);
-
-            grid[roundedX, roundedY] = children;
         }
     }
 }

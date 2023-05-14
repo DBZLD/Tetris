@@ -16,7 +16,7 @@ public class HoldBlock : MonoBehaviour
             {
                 SetHoldBlock();
                 CopyHoldBlock();
-                FindObjectOfType<Gamemanagers>().DestroyBlock();
+                FindObjectOfType<TetrisBlock>().DestroyBlock();
                 FindObjectOfType<SpawnBlock>().ResetTetromino();
                 FindObjectOfType<NextBlock>().ResetNextBlock();
 
@@ -25,7 +25,7 @@ public class HoldBlock : MonoBehaviour
             else
             {
                 ChangeHoldBlock();
-                FindObjectOfType<Gamemanagers>().DestroyBlock();
+                FindObjectOfType<TetrisBlock>().DestroyBlock();
                 FindObjectOfType<SpawnBlock>().NewTetromino();
                 DestroyHoldBlock();
                 CopyHoldBlock();

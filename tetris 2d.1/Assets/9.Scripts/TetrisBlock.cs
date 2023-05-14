@@ -70,7 +70,7 @@ public class TetrisBlock : MonoBehaviour
                 {
                     transform.position += new Vector3(0, 1, 0);
 
-                    m_GameManger.DisableBlock();
+                    m_GameManger.DisableBlock(this);
                     break;
                 }
             }
@@ -82,14 +82,16 @@ public class TetrisBlock : MonoBehaviour
             {
                 transform.position += new Vector3(0, 1, 0);
 
-                m_GameManger.DisableBlock();
+                m_GameManger.DisableBlock(this);
             }
             previousTime = Time.time;
         }
         if(Input.GetKeyDown(KeyCode.C))
         {
+
             FindObjectOfType<HoldBlock>().ResetHoldBlock();
             FindObjectOfType<GhostSpawner>().ReSetGhostBlock();
+            DestroyBlock();
 
         }
     }
@@ -112,4 +114,23 @@ public class TetrisBlock : MonoBehaviour
             }
             return true;
         }
+    public void AddToGide()
+    {
+        foreach (Transform children in transform)
+        {
+            int roundedX = Mathf.RoundToInt(children.transform.position.x);
+            int roundedY = Mathf.RoundToInt(children.transform.position.y);
+
+            Gamemanagers.grid[roundedX, roundedY] = children;
+        }
+    }
+    public void DestroyBlock()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public void Start()
+    {
+        m_GameManger = GameObject.FindObjectOfType<Gamemanagers>();
+    }
 }
