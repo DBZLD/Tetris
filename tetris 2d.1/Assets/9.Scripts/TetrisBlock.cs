@@ -88,11 +88,12 @@ public class TetrisBlock : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.C))
         {
-
-            FindObjectOfType<HoldBlock>().ResetHoldBlock();
-            FindObjectOfType<GhostSpawner>().ReSetGhostBlock();
-            DestroyBlock();
-
+            if(FindObjectOfType<HoldBlock>().HoldEnable)
+            {
+                FindObjectOfType<HoldBlock>().ResetHoldBlock();
+                FindObjectOfType<GhostSpawner>().ReSetGhostBlock();
+                DestroyBlock();
+            }
         }
     }
     bool VaildMove()

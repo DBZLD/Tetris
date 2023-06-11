@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class Gamemanagers : MonoBehaviour
 {
-
-
-    protected static Gamemanagers m_Instance = null;
-    public static Gamemanagers GetInstance()
+    public CountClearLine m_CountClearLine = null;
+    public CountScore m_CountScore = null;
+    private void Start()
     {
-        if(m_Instance == null)
-        {
-            m_Instance = GameObject.FindObjectOfType<Gamemanagers>();
-        }
-
-        return m_Instance;
+        m_CountClearLine = GameObject.FindObjectOfType<CountClearLine>();
+        m_CountScore = GameObject.FindObjectOfType<CountScore>();
     }
 
     public static float fallTime = 0.8f;
@@ -29,6 +24,7 @@ public class Gamemanagers : MonoBehaviour
 
         block.enabled = false;
 
+        m_CountClearLine.ResetCount();
         FindObjectOfType<SpawnBlock>().ResetTetromino();
         FindObjectOfType<GhostSpawner>().ReSetGhostBlock();
         FindObjectOfType<NextBlock>().ResetNextBlock();
@@ -37,13 +33,23 @@ public class Gamemanagers : MonoBehaviour
 
     void CheckForLines()
     {
+        bool isdeleteline = false;
         for (int i = Height - 1; i >= 0; i--)
         {
             if (HasLine(i))
             {
+                isdeleteline = true;
                 DeleteLine(i);
                 RowDown(i);
+                m_CountClearLine.AddCount();
             }
+        }
+
+        if(isdeleteline)
+        {
+            m_CountClearLine.UpdateUI();
+            m_CountScore.GetAddScore(m_CountClearLine.ClearLine);
+            m_CountScore.SetText();
         }
     }
 

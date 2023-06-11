@@ -10,28 +10,25 @@ public class HoldBlock : MonoBehaviour
 
     public void ResetHoldBlock()
     {
-        if(HoldEnable == true)
+        if (nHoldBlock == 7)
         {
-            if (nHoldBlock == 7)
-            {
-                SetHoldBlock();
-                CopyHoldBlock();
-                FindObjectOfType<TetrisBlock>().DestroyBlock();
-                FindObjectOfType<SpawnBlock>().ResetTetromino();
-                FindObjectOfType<NextBlock>().ResetNextBlock();
+            SetHoldBlock();
+            CopyHoldBlock();
+            FindObjectOfType<TetrisBlock>().DestroyBlock();
+            FindObjectOfType<SpawnBlock>().ResetTetromino();
+            FindObjectOfType<NextBlock>().ResetNextBlock();
 
-                HoldEnable = false;
-            }
-            else
-            {
-                ChangeHoldBlock();
-                FindObjectOfType<TetrisBlock>().DestroyBlock();
-                FindObjectOfType<SpawnBlock>().NewTetromino();
-                DestroyHoldBlock();
-                CopyHoldBlock();
+            HoldEnable = false;
+        }
+        else
+        {
+            ChangeHoldBlock();
+            FindObjectOfType<TetrisBlock>().DestroyBlock();
+            FindObjectOfType<SpawnBlock>().NewTetromino();
+            DestroyHoldBlock();
+            CopyHoldBlock();
 
-                HoldEnable = false;
-            }
+            HoldEnable = false;
         }
     }
     private void SetHoldBlock()
