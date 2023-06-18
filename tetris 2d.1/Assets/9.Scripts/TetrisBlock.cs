@@ -6,32 +6,57 @@ public class TetrisBlock : MonoBehaviour
 {
     private float previousTime;
     public Vector3 rotationPoint;
-
+    public float SetTime = 0.1f;
+    public float LeftTime = 0.1f;
+    public float Speed = 3f;
     public Gamemanagers m_GameManger = null;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+
+        if( Input.GetKeyDown(KeyCode.LeftArrow) )
         {
-            transform.position -= new Vector3(1, 0, 0);
-            FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
-            if (!VaildMove())
-            {
-                transform.position += new Vector3(1, 0, 0);
-                FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
-            }
+            LeftTime = 0f;
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            transform.position += new Vector3(1, 0, 0);
-            FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
-            if (!VaildMove())
+            LeftTime = 0f;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            LeftTime -= Time.deltaTime;
+            if (LeftTime <= 0)
             {
+                LeftTime = SetTime;
+
                 transform.position -= new Vector3(1, 0, 0);
                 FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
+                if (!VaildMove())
+                {
+                    transform.position += new Vector3(1, 0, 0);
+                    FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
+                }
             }
         }
-        else if(Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            LeftTime -= Time.deltaTime;
+            if (LeftTime <= 0)
+            {
+                LeftTime = SetTime;
+
+                transform.position += new Vector3(1, 0, 0);
+                FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
+                if (!VaildMove())
+                {
+                    transform.position -= new Vector3(1, 0, 0);
+                    FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
+                }
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
@@ -96,7 +121,7 @@ public class TetrisBlock : MonoBehaviour
             }
         }
     }
-    bool VaildMove()
+    public bool VaildMove()
         {
             foreach ( Transform children in transform)
             {

@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Gamemanagers : MonoBehaviour
 {
     public CountClearLine m_CountClearLine = null;
     public CountScore m_CountScore = null;
+    public CountCombo m_CountCombo = null;
+    public GameOverPanel m_GameOverPanel = null;
+    public GameoverScore m_GameOverScore = null;
+    public bool IsGameOver = false;
     private void Start()
     {
         m_CountClearLine = GameObject.FindObjectOfType<CountClearLine>();
         m_CountScore = GameObject.FindObjectOfType<CountScore>();
+        m_CountCombo = GameObject.FindObjectOfType<CountCombo>();
     }
 
     public static float fallTime = 0.8f;
@@ -29,6 +35,10 @@ public class Gamemanagers : MonoBehaviour
         FindObjectOfType<GhostSpawner>().ReSetGhostBlock();
         FindObjectOfType<NextBlock>().ResetNextBlock();
         FindObjectOfType<HoldBlock>().HoldEnable = true;
+        if(!block.VaildMove())
+        {
+            IsGameOver = true;
+        }
     }
 
     void CheckForLines()
@@ -42,14 +52,19 @@ public class Gamemanagers : MonoBehaviour
                 DeleteLine(i);
                 RowDown(i);
                 m_CountClearLine.AddCount();
+                
             }
         }
 
         if(isdeleteline)
         {
             m_CountClearLine.UpdateUI();
-            m_CountScore.GetAddScore(m_CountClearLine.ClearLine);
-            m_CountScore.SetText();
+            m_CountCombo.CheckCombo();
+            m_CountScore.GetAddScore(m_CountClearLine.ClearLine, m_CountCombo.ComboCount);
+        }
+        else
+        {
+            m_CountCombo.ResetCombo();
         }
     }
 
@@ -87,6 +102,20 @@ public class Gamemanagers : MonoBehaviour
                     grid[j, y] = null;
                     grid[j, y - 1].transform.position -= new Vector3(0, 1, 0);
                 }
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (IsGameOver == true)
+        {
+
+            m_GameOverPanel.gameObject.SetActive(true);
+            m_GameOverScore.SetText(m_CountScore.Score);
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);             
             }
         }
     }

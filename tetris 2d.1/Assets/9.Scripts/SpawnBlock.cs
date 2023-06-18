@@ -10,6 +10,11 @@ public class SpawnBlock : MonoBehaviour
     public static int nNextBlock;
     public static int nNowBlock;
 
+
+    [Header("[µð¹ö±ë¿ë]")]
+    public bool ISDebug = false;
+    public List<int> m_DebugSpawnBlockList = new List<int>() { 0, 0, 0, 4 };
+
     void Awake()
     {
         StartTetromino();
@@ -47,8 +52,7 @@ public class SpawnBlock : MonoBehaviour
         while(true)
         {
             nReturn = Random.Range(0, 7);
-
-            if(nBag[nReturn] != 7)
+            if (nBag[nReturn] != 7)
             {
                 nBag[nReturn] = 7;
                 nBagTurn++;
@@ -57,6 +61,13 @@ public class SpawnBlock : MonoBehaviour
                     nBag = new int[] { 0, 1, 2, 3, 4, 5, 6};
                     nBagTurn = 0;
                 }
+
+                if (ISDebug && m_DebugSpawnBlockList.Count > 0)
+                {
+                    nReturn = m_DebugSpawnBlockList[0];
+                    m_DebugSpawnBlockList.RemoveAt(0);
+                }
+
                 return nReturn;
             }
         }

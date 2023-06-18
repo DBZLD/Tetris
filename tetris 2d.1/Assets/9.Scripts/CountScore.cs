@@ -10,19 +10,22 @@ public class CountScore : MonoBehaviour
     public int AddScore = 0;
     public void SetText()
     {
-        text.text = "Score : " + (Score + AddScore).ToString();
+        text.text = "Score : " + Score.ToString();
         ResetAddScore();
     }
-    public void GetAddScore(int ClearLine)
+    public void GetAddScore(int ClearLine, int ComboCount)
     {
         if (ClearLine == 4)
         {
-            AddScore = 100;
+            AddScore = (100 * ComboCount);
         }
         else
         {
-            AddScore = (ClearLine * 20);
+            AddScore = (ClearLine * (20 * ComboCount));
         }
+
+        Score += AddScore;
+        SetText();
     }
 
     public void ResetAddScore()

@@ -49,7 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationPoint: {x: 0, y: 0, z: 0}
-  fallTime: 0.8
+  SetTime: 0.1
+  LeftTime: 0.1
+  RightTime: 0.1
+  Speed: 3
+  m_GameManger: {fileID: 0}
 --- !u!1 &1361536157400866403
 GameObject:
   m_ObjectHideFlags: 0
