@@ -11,6 +11,7 @@ public class Gamemanagers : MonoBehaviour
     public GameOverPanel m_GameOverPanel = null;
     public GameoverScore m_GameOverScore = null;
     public bool IsGameOver = false;
+    public int nTakeBlock = 0;
     private void Start()
     {
         m_CountClearLine = GameObject.FindObjectOfType<CountClearLine>();
@@ -25,6 +26,8 @@ public class Gamemanagers : MonoBehaviour
 
     public void DisableBlock(TetrisBlock block)
     {
+        if (IsGameOver == true) return;
+
         block.AddToGide();
         CheckForLines();
 
@@ -35,10 +38,7 @@ public class Gamemanagers : MonoBehaviour
         FindObjectOfType<GhostSpawner>().ReSetGhostBlock();
         FindObjectOfType<NextBlock>().ResetNextBlock();
         FindObjectOfType<HoldBlock>().HoldEnable = true;
-        if(!block.VaildMove())
-        {
-            IsGameOver = true;
-        }
+        nTakeBlock++;
     }
 
     void CheckForLines()
@@ -67,7 +67,6 @@ public class Gamemanagers : MonoBehaviour
             m_CountCombo.ResetCombo();
         }
     }
-
     bool HasLine(int i)
     {
         for (int j = 0; j < Width; j++)

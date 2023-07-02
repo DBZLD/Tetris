@@ -9,7 +9,7 @@ public class CountClearLine : MonoBehaviour
 {
     public Text text;
     public int ClearLine = 0;
-    public string[] chClearLine = { "SINGLE", "DOUBLE", "TRIPLE", "TETRIS" };
+    public string[] chClearLine = { "SINGLE", "DOUBLE", "TRIPLE", "TETRIS"};
 
     public float DuratioSec = 1f;
     public AnimationCurve AlphaCurve;

@@ -9,7 +9,7 @@ public class TetrisBlock : MonoBehaviour
     public float SetTime = 0.1f;
     public float LeftTime = 0.1f;
     public float Speed = 3f;
-    public Gamemanagers m_GameManger = null;
+    public Gamemanagers m_GameManager = null;
 
     void Update()
     {
@@ -86,7 +86,7 @@ public class TetrisBlock : MonoBehaviour
                 FindObjectOfType<GhostSpawner>().UpdateGhostBlock(this);
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             while(true)
             {
@@ -95,7 +95,7 @@ public class TetrisBlock : MonoBehaviour
                 {
                     transform.position += new Vector3(0, 1, 0);
 
-                    m_GameManger.DisableBlock(this);
+                    m_GameManager.DisableBlock(this);
                     break;
                 }
             }
@@ -107,7 +107,7 @@ public class TetrisBlock : MonoBehaviour
             {
                 transform.position += new Vector3(0, 1, 0);
 
-                m_GameManger.DisableBlock(this);
+                m_GameManager.DisableBlock(this);
             }
             previousTime = Time.time;
         }
@@ -157,6 +157,11 @@ public class TetrisBlock : MonoBehaviour
 
     public void Start()
     {
-        m_GameManger = GameObject.FindObjectOfType<Gamemanagers>();
+        m_GameManager = GameObject.FindObjectOfType<Gamemanagers>();
+
+        if (!VaildMove())
+        {
+            m_GameManager.IsGameOver = true;
+        }
     }
 }
